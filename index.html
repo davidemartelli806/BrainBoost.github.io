@@ -1,128 +1,202 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Brain Boost</title>
+<meta charset="UTF-8">
+<title>Brain Boost</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      color: white;
-      text-align: center;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
 
-    header {
-      padding: 80px 20px;
-    }
+/* HEADER */
+header {
+  padding: 100px 20px;
+  animation: fadeDown 1s ease;
+}
 
-    h1 {
-      font-size: 60px;
-      margin: 0;
-    }
+h1 {
+  font-size: 60px;
+  margin: 0;
+  animation: pop 1.2s ease;
+}
 
-    p {
-      font-size: 20px;
-      opacity: 0.9;
-    }
+p {
+  font-size: 20px;
+  opacity: 0.9;
+  animation: fadeIn 2s ease;
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: white;
-      color: #00aaff;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
+/* BUTTON */
+.btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 15px 25px;
+  background: white;
+  color: #00aaff;
+  border-radius: 30px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .section {
-      background: white;
-      color: black;
-      padding: 60px 20px;
-      margin-top: 40px;
-      border-radius: 30px 30px 0 0;
-    }
+.btn:hover {
+  transform: scale(1.1) rotate(-1deg);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
 
-    .box {
-      display: inline-block;
-      width: 250px;
-      margin: 15px;
-      padding: 20px;
-      border-radius: 15px;
-      background: #f2f2f2;
-    }
+/* SECTION */
+.section {
+  background: white;
+  color: black;
+  padding: 70px 20px;
+  margin-top: 40px;
+  border-radius: 40px 40px 0 0;
+}
 
-    input {
-      margin-top: 20px;
-    }
-  </style>
+/* CARDS */
+.box {
+  display: inline-block;
+  width: 260px;
+  margin: 15px;
+  padding: 25px;
+  border-radius: 20px;
+  background: #f2f2f2;
+  transition: 0.4s;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.box:hover {
+  transform: translateY(-10px) scale(1.05);
+  background: #e6f7ff;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* FLOAT EFFECT */
+.box h3 {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* INPUT */
+input {
+  margin-top: 20px;
+}
+
+/* RESULT */
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+  animation: fadeIn 1s ease;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeDown {
+  from {opacity: 0; transform: translateY(-40px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes pop {
+  0% {transform: scale(0.7); opacity: 0;}
+  100% {transform: scale(1); opacity: 1;}
+}
+
+@keyframes float {
+  0%,100% {transform: translateY(0);}
+  50% {transform: translateY(-8px);}
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🧠 Brain Boost</h1>
-    <p>Studia meglio, più veloce, senza stress</p>
-    <a class="btn" href="#contenuti">Inizia ora</a>
-  </header>
+<header>
+  <h1>🧠 Brain Boost</h1>
+  <p>Studia meglio, più veloce, senza stress</p>
+  <a class="btn" href="#contenuti">Inizia ora</a>
+</header>
 
-  <div class="section" id="contenuti">
-    <h2>🔥 Contenuti virali</h2>
+<div class="section" id="contenuti">
+  <h2>🔥 Contenuti virali</h2>
 
-    <div class="box">
-      <h3>📚 Riassunti veloci</h3>
-      <p>Capitoli spiegati in modo semplice</p>
-    </div>
-
-    <div class="box">
-      <h3>⚡ Metodi di studio</h3>
-      <p>Impara a memorizzare più velocemente</p>
-    </div>
-
-    <div class="box">
-      <h3>🎯 Focus mode</h3>
-      <p>Come studiare senza distrazioni</p>
-    </div>
+  <div class="box">
+    <h3>📚 Riassunti veloci</h3>
+    <p>Capitoli spiegati in modo semplice</p>
   </div>
 
-  <!-- AI SECTION -->
-  <div class="section">
-    <h2>🧠 Brain Boost AI</h2>
-
-    <input type="file" id="fileInput">
-    <br>
-    <button class="btn" onclick="sendImage()">Analizza</button>
-
-    <p id="result"></p>
+  <div class="box">
+    <h3>⚡ Metodi di studio</h3>
+    <p>Impara più velocemente</p>
   </div>
 
-  <script>
-    async function sendImage() {
-      const file = document.getElementById("fileInput").files[0];
+  <div class="box">
+    <h3>🎯 Focus mode</h3>
+    <p>Zero distrazioni</p>
+  </div>
+</div>
 
-      if (!file) {
-        alert("Seleziona un file!");
-        return;
-      }
+<div class="section">
+  <h2>🧠 Brain Boost AI</h2>
 
-      const formData = new FormData();
-      formData.append("image", file);
+  <input type="file" id="fileInput">
+  <br>
+  <button class="btn" onclick="sendImage()">Analizza</button>
 
-      const res = await fetch("http://localhost:3000/api/analyze", {
-        method: "POST",
-        body: formData
-      });
+  <p id="result"></p>
+</div>
 
-      const data = await res.json();
-      document.getElementById("result").innerText = data.summary;
+<script>
+// SCROLL ANIMATION
+const boxes = document.querySelectorAll('.box');
+
+window.addEventListener('scroll', () => {
+  boxes.forEach(box => {
+    const top = box.getBoundingClientRect().top;
+    if (top < window.innerHeight - 50) {
+      box.classList.add('show');
     }
-  </script>
+  });
+});
+
+// AI FUNCTION
+async function sendImage() {
+  const file = document.getElementById("fileInput").files[0];
+
+  if (!file) {
+    alert("Seleziona un file!");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const res = await fetch("http://localhost:3000/api/analyze", {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  document.getElementById("result").innerText = data.summary;
+}
+</script>
 
 </body>
+</html>
 </html>
 
