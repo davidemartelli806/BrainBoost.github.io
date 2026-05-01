@@ -130,3 +130,78 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Brain Boost AI</title>
+</head>
+<body>
+
+  <h1>🧠 Brain Boost AI</h1>
+
+  <input type="file" id="fileInput">
+  <button onclick="sendImage()">Analizza</button>
+
+  <p id="result"></p>
+
+  <script>
+    async function sendImage() {
+      const file = document.getElementById("fileInput").files[0];
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const res = await fetch("https://TUO-BACKEND/api/analyze", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      document.getElementById("result").innerText = data.summary;
+    }
+  </script>
+
+</body>
+</html>
+import express from "express";
+import multer from "multer";
+import fs from "fs";
+import OpenAI from "openai";
+
+const app = express();
+const upload = multer({ dest: "uploads/" });
+
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
+app.post("/api/analyze", upload.single("image"), async (req, res) => {
+
+  const imagePath = req.file.path;
+
+  const imageBase64 = fs.readFileSync(imagePath, { encoding: "base64" });
+
+  const response = await client.responses.create({
+    model: "gpt-4.1-mini",
+    input: [
+      {
+        role: "user",
+        content: [
+          { type: "input_text", text: "Riassumi il contenuto di questa immagine in modo semplice per uno studente." },
+          {
+            type: "input_image",
+            image_base64: imageBase64
+          }
+        ]
+      }
+    ]
+  });
+
+  res.json({
+    summary: response.output_text
+  });
+
+});
+
+app.listen(3000, () => console.log("Server avviato"));
