@@ -8,3 +8,7 @@
   <p>Questo è il mio primo sito gratis!</p>
 </body>
 </html>
+<body style="font-family: Arial; text-align: center;">
+  <h1 style="color: blue;">Ciao 👋</h1>
+  <p>Sto creando qualcosa di serio.</p>
+</body>
